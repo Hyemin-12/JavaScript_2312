@@ -1,0 +1,118 @@
+<script>
+//여기서부터 전역 실행 컨텍스트가 생성됨
+
+// 전역 컨텍스트를 생성하는 시점에 세 가지 작업이 수행됨
+// 1. 전역 객체를 생성 (브라우저에서는 window, 노드인 경우 global)
+// console.log(window);
+// 2. this를 전역 객체로 할당
+// console.log(this); //전역 객체로 할당하므로 => window
+// 3. 사용할 값들(ex: 변수, 함수 등)을 위한 메모리 할당 및 초기화
+// 호이스팅은 3번에서 일어남(생성 단계에서)
+
+// 전역 실행 컨텍스트
+// 생성 단계로 진입, 컨텍스트(=기억 공간)을 만듦
+// var a => undifined
+// let b => <uninitialized>
+// function f => 함수
+// window => 전역객체
+// this => window
+// 실행 단계로 진입(함수는 전역 객체X)
+// a = 100, b = 200, a = 300, a = 400
+// var a = 100;
+// let b = 200;
+// function f() { console.log('hello'); }
+// a = 300;
+// b = 400;
+
+// 함수 실행 컨텍스트
+// 생성 단계로 진입
+// arguments라는 유사 배열이 생성됨(전달된 인자값 저장(x, y))
+// x, y, arguments => [x, y]
+//  this => undefined(엄격모드가 아니면 window)
+// 실행 단계로 진입(함수를 호출할 때 생김)
+// x => 100
+// y => 200
+// result => 300
+// arguments => [100, 200]
+// var a = 100;
+// let b = 200;
+// function add(x, y) {
+// console.log(arguments);
+//	return x + y;
+//	//return arguments[0] + arguments[1];
+// }
+// let result = add(a, b);
+
+// // 전역 실행 컨텍스트
+// // 생성단계로 진입
+// // window, this
+// // a => 100
+// // b => 200
+// // result => <u>
+// // addAndDouble => f
+// // addAndDouble 함수 실행 컨텍스트 진입
+// // x => 100
+// // y => 200
+// // arguments => [100, 200]
+// // this => undefined
+// // double => f
+// // double 함수 실행 컨텍스트 진입
+// // x => 300
+// // arguments[300]
+// // this => undefined
+// //최종 result => 600
+// var a = 100;
+// let b = 200;
+// function addAndDouble(x, y) {
+// 	return double(x + y); //자기 실행 컨텍스트에서 못찾으면 상위 컨텍스트에서 찾음)
+// 	function double(x) {
+// 		return 2 * x;
+// 	}
+// }
+// let result = addAndDouble(a, b);
+
+// 전역 실행 컨텍스트(GEC)
+// sum => 0
+// y => 100
+// result => <u>
+// adder => <u>
+// makeAdder => f
+// ***************
+// adder를 통해서만 접근 가능
+// init => 0
+// sum => 0
+// ***************
+// adder 익명함수 실행 컨텍스트(FEC)
+// x => 1
+// 클로저 함수(함수 + 기억공간(실행 컨텍스트)) 
+// => 함수 안에서 함수를 리턴하면 그 안에 있는 것들은 보존됨(다른 언어에서는 버려짐)
+// js의 모든 함수는 자기가 만들어진 바깥의 실행 컨텍스트를 기억함(js는 모두 클로저 함수)
+// let sum = 0;
+// let y = 100;
+// function makeAdder(init = 0) {
+//	let sum = init;
+//	return function(x) {
+//		sum += x + y; //y는 GEC이므로 상관X
+//		return sum;   //익명 함수가 sum을 참조하고 있기 때문에 sum은 버려지지 않음
+//	}
+// }
+// let adder = makeAdder(sum);
+// let result = adder(1); // adder는 makeAdder가 종료되도 그 안에 있는 것을 참조할 수 있다
+
+// person.makeSayHelloTo = function(to) {
+//	let name = this.name;
+//	return function() {
+//		console.log(name, 'say hello to', to);
+//	}
+// }
+let person = { name: "John" };
+person.makeSayHelloTo = function(to) {
+	console.log(this); // => person
+	return function() {
+		console.log(this) // => window
+		console.log(this.name, 'say hello to', to); //이거는 안됨(this => window이므로, 엄격모드면 this => undefined)
+	}
+}
+let johnSayHelloToSally = person.makeSayHelloTo('Sally');
+johnSayHelloToSally();
+</script>

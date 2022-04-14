@@ -1,0 +1,106 @@
+<script>
+// let map = new Map();//생성자 함수
+
+// //set : 키를 이용해 값을 저장함
+// //map.set(키, 값);
+// //map['1'] = 'str1';
+// map.set('1', 'str1'); //문자형 키
+// map.set(1, 'num1'); //숫자형 키(문자열로 바뀌지 않음, 독립됨(참조가 다름))
+// map.set(true, 'bool1')//불린형 키
+
+// //get : 키를 이용해 값을 가져옴
+// console.log(map.get('1'));
+// console.log(map.get(1));
+// console.log(map.get(true));
+
+// console.log(map);
+
+// let John = {name : "John"};
+// let visitCountMap = new Map();
+// visitCountMap.set(John, 123);
+// console.log(visitCountMap.get(John));
+
+// let John2 = {name : "John"};
+// //결과
+// console.log	(visitCountMap.get(John2));
+
+// let recipeMap = new Map([
+// 	['cucumber', 500], //[키, 값](set을 단축해서 쓴 것)
+// 	['tomatoes', 350], 
+// 	['onion', 50]
+// ]);
+
+// // 키를 대상으로 순회
+// for (let vegetable of recipeMap.keys()) {
+// 	// cucumber, tomatoes, onion 
+// 	console.log(vegetable); 
+// }
+// // 값을 대상으로 순회
+// for (let amount of recipeMap.values()) {
+// 	// 500, 350, 50
+// 	console.log(amount); 
+// }
+// // [키, 값] 쌍을 대상으로 순회
+// // recipeMap은 recipeMap.entries()와 동일
+// for (let entry of recipeMap) {
+// 	// 여기서 entry는 배열 (배열 첫 번째 요소 => 키, 두 번째 요소 => 값)
+// 	console.log(entry);
+// }
+// // 각 (키, 값) 쌍을 대상으로 함수를 실행
+// recipeMap.forEach( (value, key, map) => {
+// 	console.log(`${key}: ${value}`);
+// });
+
+// 이름과 성을 요소로 가진 배열
+// let arr = ["Bora", "Lee"];
+// // 구조 분해 할당
+// let [firstName, surname] = arr;
+// // let firstName = arr[0];
+// // let surname	= arr[1];
+// const[f, s] = arr;
+
+// let [firstName, surname] = "Bora Lee".split(' ');
+
+// let s = "Bora Lee".split(' ');
+// let firstName = s[0];
+// let surname = s[1];
+
+// let [firstName, , title] = ["Julius", 
+// "Caesar", "Consul", "of the Roman Republic"];
+
+// //... : 나머지 애들을 배열로 넣음
+// let [name1, name2, ...rest] = ["Julius", 
+// "Caesar", "Consul", "of the Roman Republic"];
+// console.log(name1);
+// console.log(name2);
+// console.log(rest);
+
+// let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+
+// let options = { title: "Menu", width: 100, height: 200 };
+// // let { title, width, height } = options;
+// // let title = options.title;
+// // let width = options.width;
+// // let height = options.height;
+// let { width: w, height: h, title } = options;//변수의 이름을 바꾸고 싶을 때
+
+// 함수에 전달할 객체
+let options = {
+	title: "My menu",
+	items: ["Item1", "Item2"]
+};
+// 전달받은 객체를 분해해 함수 지역 변수에 즉시 할당함
+function showMenu({ 
+	title = "Untitled", 
+	width = 200, 
+	height = 100, 
+	items = [] 
+}) {
+	// title, items – 객체 options에서 가져옴
+	// width, height – 기본값
+	alert( `${title} ${width} ${height}` ); // My Menu 200 100
+	alert( items ); // Item1, Item2
+}
+showMenu(options);
+
+</script>

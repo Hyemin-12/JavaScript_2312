@@ -1,0 +1,37 @@
+<script>
+// //var a; <- 사실상 var는 여기 있는거
+// var b;
+// console.log(a);//undefined
+
+// //a = 100;
+// var a = 100; //호이스팅으로 인해 undefined가 나옴
+// b = 200;
+// b = 300;
+// let c = 400;
+// let c = 500; //let은 이렇게 쓰면 에러남
+
+// console.log(c); //참조에러
+
+// let c = 400; 
+
+// f1(); //호줄됨
+// function f1(){
+	
+// }
+
+// f2(); //f2 is not a function(var f2에 undefined 값이 들어있으므로)
+// var f2 = function() {}
+
+console.log(a);
+
+function f1(){
+	var a = 200; //var는 함수 레벨 스코프를 가짐(함수 안에서만 호이스팅이 일어남)
+}
+
+f1()
+
+//호이스팅은 코드블록 내에서만 일어남
+{//사실상 message는 여기 있는 거
+	let message = "Hello";
+}
+</script>

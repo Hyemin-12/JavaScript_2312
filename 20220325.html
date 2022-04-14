@@ -1,0 +1,132 @@
+<script>
+// //굳이 쓸 일 없음 걍 배열을 넘기면 됨
+// function summAll(...args){ // ...args => 가변인자(인자의 개수가 정해져 있지 않음)
+// 	//arg는 배열이 됨
+// 	console.log(Array.isArray(args)); //true
+// 	let sum = 0;
+// 	for(let arg of args){
+// 		sum += arg;
+// 	}
+// 	return sum;
+// }
+// console	.log(summAll(1, 2, 3));
+
+// // 가변인자값을 전달받는 건 맨 마지막에 정의
+// function showName(firstName, lastName, ...titles) {
+// alert( firstName + ' ' + lastName );
+// alert( titles[0] ); // Consul
+// alert( titles[1] ); // Imperator
+// alert( titles.length ); // 2
+// }
+// // "Julius", "Caesar"은 첫번째, 두번째 인자값에 들어가고 나머지 애들은 배열로 titles에 저장됨
+// showName("Julius", "Caesar", "Consul", "Imperator")
+
+// //Q)
+// function calc(x, ...numbers){
+// 	let res;
+// 	if(x === "+"){
+// 		res = 0;
+// 		for(let num of numbers){
+// 			res += num;
+// 		}
+// 		return res;
+// 	}else if(x === "-"){
+// 		if(numbers.length === 1) return numbers[0];
+// 		res = numbers[0];
+// 		for(let i = 1; i < numbers.length; i++){
+// 			res -= numbers[i];
+// 		}
+// 		return res;
+// 	}else if(x === "*"){
+// 		res = 1;
+// 		for(let num of numbers){
+// 			res *= num;
+// 		}
+// 		return res;
+// 	}else if(x === "/"){
+// 		if(numbers.length === 1) return numbers[0];
+// 		let res = numbers[0];
+// 		for(let i = 1; i < numbers.length; i++){
+// 			res /= numbers[i];
+// 		}
+// 		return res;
+// 	}
+// 	return NaN;
+// }
+
+// let r1 = calc("+", 1, 2, 3);		//6
+// let r2 = calc("-", 5, 4);			//1
+// let r3 = calc("*", 3, 2, 1, -2);	//-12
+// let r4 = calc("/", 10, 5, 2); 		//1
+
+// console.log(r1);
+// console.log(r2);
+// console.log(r3);
+// console.log(r4);
+
+// function sumAll() {
+// // arguments는 배열은 아님
+// console.log(Array.isArray(arguments)); // false
+// let sum = 0;
+// // 하지만, 이터러블 객체이므로 배열 처럼 요소 순회는 가능
+// for(let arg of arguments) sum += arg;
+// return sum;
+// }
+// console.log( sumAll(1, 2) ); // 3
+// console.log( sumAll(1, 2, 3) ); // 6
+
+// let arr = [1, 2, 3];
+// let arrCopy = [...arr]; // ... => 객체를 카피할 수 있음(...은 위치에 따라 쓰임이 바뀜)
+
+// let person = {
+// 	name: 'John',
+// 	address: {
+// 		city: 'Seoul',
+// 		postal: '01234'
+// 	}
+// };
+
+// let personCopy1 = { ...person};
+
+// //값 복사(Deep Copy)
+// personCopy1.name = "Sally";
+// console.log(person.name);
+
+// //주소 복사(Shallow Copy)
+// personCopy1.address.city = "Busan";
+// console.log(person.address.city);
+
+// //중첩 객체는 이렇게 	복사해야 모두 Deep Copy가 됨
+// let personCopy2 = { ...person, address: { ...person.address}};
+
+// js는 생성한 함수를 값처럼 다른 함수에 인수로 넘길 수 있다
+
+// //Lexical Environments => (this, argument 등)값을 저장(맵핑)하는 공간(블록을 기준으로 만들어짐)
+// //같은 렉시컬 환경에서는 변수 중복 선언 불가
+// let message = "안녕하세요.";
+// alert(message);
+
+// let message = "안녕히 가세요.";
+// alert(message);
+
+// // 다른 렉시컬 환경에서는 중복 가능
+// let message = "Hello";
+// {
+// let message = "안녕하세요.";
+// // 바깥 변수의 이름을 지역 변수가 가려버리는 "변수 쉐도잉(shadowing)" 현상 발생
+// alert(message);
+// }
+// alert(message);
+
+for(var i = 0; i < 3; i++){//var는 저 바깥에 호이스팅 됨 그래서 포문을 다 돌린 후 나온 i(3)을 출력함
+	setTimeout(function log(){
+		console.log(i);// 3이 세 번 나옴
+	}, 1000)
+}
+
+for(let i = 0; i < 3; i++){//let은 이 블록{}안에서만 호이스팅 됨
+	setTimeout(function log(){
+		console.log(i);// 0, 1, 2가 나옴
+	}, 1000)
+}
+</script>
