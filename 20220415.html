@@ -1,0 +1,132 @@
+<script>
+	// 클래스 => 생성자 함수를 더 쉽게 만들어 놓은 것
+	class User { // 생성자 함수(User.prototype.constructor === User)
+		// 생성자 메서드는 new User(...) 명령어에 의해서 자동으로 호출됨
+		// 생성자 메서드는 무조건 constructor라는 이름이어야 함
+		//constructor가 없으면 본문이 빈 함수가 만들어짐(쓸 일 잘 없음)
+		constructor(name) {
+			// 전달받은 인수를 이용해서 필요한 속성값을 초기화
+			this.name = name;
+		}
+		sayHi() {//User의 프로토타입에 정의 되어 있음
+			alert(this.name);
+		}
+	}
+	// 객체 생성(new 연산자 사용)
+	let user = new User("John"); // 이 내용이 사실상 constructor로 넘어감
+	// 클래스 내부에서 정의한 메서드 사용 가능
+	user.sayHi();
+
+
+	//위의 코드를 생성자 함수와 프로토타입 객체를 이용한 것으로 바꾼 코드
+	// 1. User라는 이름을 가진 생성자 함수를 만들고 함수 본문은 생성자 메서드 constructor에서 가져오기
+	function User(name) {
+		this.name = name;
+	}
+	// 만약 constructor 메서드의 내용이 비어있다면 다음과 같은 "본문이 비워진" 생성자 함수가 정의됨
+	// function User(name) {}
+	// 2. 클래스 내에서 사용할 메서드를 User.prototype에 정의하기
+	User.prototype.sayHi = function() { alert(this.name); }
+
+	//Button
+	class Button {
+		constructor(value) {
+			this.value = value;
+		}
+		click() {
+			alert(this.value);
+		}
+	}
+	// 메서드 전달
+	let button = new Button("hello");
+	 
+	// 단, 메서드가 전달되어 콜백 함수에서 호출되므로 함수가 호출되는 시점에는 this 맥락(점 앞 객체)을 잃게 됨(bind를 쓰면 됨)
+	// 주체가 엄격 모드가 아니므로 this는 Window
+	setTimeout(button.click, 1000); // undefined
+
+	class Button {
+		constructor(value) {
+			this.value = value;
+		}
+		// this를 계속 유지하고 싶으면 화살표 함수로 정의한다(성능적인 면에서는 그냥 함수가 좋음)
+		// click 메서드를 화살표 함수를 이용해서 정의
+		click = () => { // click은 프로토타입을 따라가지 않는다(개별적으로 붙는 함수)
+			alert(this.value);
+		}
+		nonBinded() {
+			alert(this.value);
+		}
+	}
+	let button1 = new Button("hello");
+	// 화살표 함수는 내부에서 매번 자기가 바인딩을 해주기 때문에 this가 button1이 됨
+	// 개별적으로 함수를 바인딩한다
+	setTimeout(button1.click, 1000); // hello
+	// 얘는 this 못찾음
+	let button2 = new Button("hello");//undefined
+
+	// extends => 상속 키워드
+	//그냥 프로토타입 상속을 할 때 밑의 코드 같은 기능을 함(밑 코드 두 줄을 축약한 키워드)
+	// Object.create사용 => { __proto__: Shape.prototype }
+	Circle.prototype = Object.create(Shape.prototype);
+	// 복원
+	Circle.prototype.constructor = Circle;
+
+	//static(쓸 일 잘 없음)
+	class User {
+		// static 키워드를 붙여 메서드를 정의 => 정적 메서드 정의
+		static staticMethod() {
+			alert(this === User);
+		}
+	}
+	// 객체가 아닌 클래스 이름으로 접근하여 호출 가능
+	User.staticMethod(); //this : 점 앞 객체 
+
+	class User {}
+	// 속성값 직접 할당 (prototype 객체에 할당하는 것이 아님(함수도 객체이기 때문에 직접 할당 가능)을 유의)
+	User.staticMethod = function() {
+		console.log(this === User);
+	};
+	User.staticMethod();
+
+	//protected와 비슷하게 쓰는 법(강제성 X)
+	//세터, 게터
+	class CoffeeMachine {
+		// 밑줄을 앞에 붙여서 속성 이름 정의
+		// 별 뜻은 없지만 그냥 _가 붙으면 건들이지 말자는 사회적 약속(강제성은 없음)
+		_waterAmount = 0;
+		// 원래 쓰고자 했던 속성 이름(waterAmount)으로 세터, 게터 함수 정의
+		set waterAmount(value) { //세터를 이용
+			if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+			this._waterAmount = value;
+		}
+		get waterAmount() {
+			return this._waterAmount;
+		}
+		constructor(power) {
+			this._power = power;
+		}
+	}
+	// 커피 머신 생성
+	let coffeeMachine = new CoffeeMachine(100);
+	// 물 추가
+	// Error: 물의 양은 음수가 될 수 없습니다.
+	coffeeMachine.waterAmount = -10; //속성처럼 접근하지만 메서드가 실행됨
+
+	//private(강제성 O)
+	class CoffeeMachine {
+		//#을 붙이면 private가 됨(강제로)
+		#waterLimit = 200; 
+		#checkWater(value) {
+			if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+			// private 프로퍼티는 클래스 내부에서만 접근 가능
+			if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
+		}
+	}
+	let coffeeMachine = new CoffeeMachine()
+	// Uncaught SyntaxError: Private field '#waterLimit' must be declared in an enclosing class
+	console.log( coffeeMachine.#waterLimit ); //private이기 때문
+
+	//instanceof 연산자
+	//어떤 클래스인지, 어떤 클래스를 상속받고 있는지 확인할 때 쓰인다.
+	//생성자 함수를 대상으로도 사용 가능하다.
+</script>
