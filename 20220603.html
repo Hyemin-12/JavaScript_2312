@@ -1,0 +1,98 @@
+<script>
+/*//객체 생성자 문법
+let animal1 = new Object();
+animal1.name = "Puppy";
+animal1.age = 5;
+animal1.gender = "female";
+
+//객체 리터럴 문법
+let animal2 = {
+	name: "Puppy",
+	age: 5,
+	gender: "female"
+};
+
+console.log(animal1);
+console.log(animal2);
+
+//객체 생성 복습
+let item = new Object();
+item.name = "라면";
+item.price = 1000;
+item.discountRate = 0.2;
+
+console.log(item);
+
+//대괄호, 하이픈 사용
+let car = {
+	name: "벤츠",
+	price: 80000000,
+	carNumber: "10가 1234"
+};
+
+car.color = "빨강";
+car["hello-world"] = "js";
+
+delete car.carNumber;
+
+console.log(car);
+
+//값 단축 구문 사용
+let name = "벤츠";
+const price = 80000000;
+let carNumber = "10가 1234";
+let color = "빨강";
+
+let car2 = {
+	name,
+	price, 
+	carNumber,
+	color
+};
+
+console.log(car2); */
+
+/*function changeUser(obj, prop, val, bool){
+	if(bool){
+		obj[prop] = val;
+		return obj;
+	}else{
+		let copy = Object.assign({}, obj);
+		copy[prop] = val;
+		return copy;
+	}
+}
+
+let user = {
+	name: "John",
+	age: 20
+};
+
+let u1 = changeUser(user, "name", "Sam", true);
+let u2 = changeUser(user, "name", "Sam", false);
+let u3 = changeUser(user, "age", 30, false);
+
+console.log(user === u1);
+console.log(user === u2);
+console.log(u3);*/
+
+function query(obj){
+	let arr = [];
+	for(let key in obj){
+		arr.push(key);
+	}
+	let props = arr.join(", ");
+	while(1){
+		const input = prompt(`${props} 중 속성 입력`);
+		if(arr.includes(input.trim())){
+			alert(obj[input]);
+			break;
+		}
+	}
+	
+}
+let user = {name: "John", age: 20};
+query(user);
+let phone = {price:100000, model: "iPhone", menu: "Apple"};
+query(phone);
+</script>
