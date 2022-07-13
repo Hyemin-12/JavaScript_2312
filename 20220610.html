@@ -1,0 +1,121 @@
+<script>
+/*const user = { id: 1, name: "John", age: 20};
+// user 객체에 메서드 추가
+// 1. 미성년자 여부를 알려주는 isMinor 메서드 (true, false 반환)
+// 2. 자신의 이름을 말하는 speakName 메서드 (단, 메서드에 숫자 값을 전달하면 여러 번 말할 수 있음 ex: speakName(3))
+// 구현 과정에서 this 값을 활용해야 함
+
+user.isMinor = function(){
+	if(this.age < 20) return true;
+	else return false;
+}
+
+user.speakName = function(n = 1){
+	for(let i = 0; i < n; i++) alert(this.name);
+}
+
+
+console.log(user.isMinor());
+user.speakName(3);
+*/
+
+/*// 다음의 생성자 함수 작성
+function Point(x, y){
+	this.x = x;
+	this.y = y;
+}
+
+let p = new Point(2, 3);
+console.log(p); // { x: 2, y: 3}
+*/
+
+/*// function User(id, name, age){
+// 	this.id = id;
+// 	this.name = name;
+// 	this.age = age;
+// }
+
+// User.prototype.isMinor = function(){
+// 	if(this.age < 20) return true;
+// 	else return false;
+// }
+
+// User.prototype.speakName = function(n = 1){
+// 	for(let i = 0; i < n; i++) alert(this.name);
+// }
+
+class User{
+	constructor(id, name, age){
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+	isMinor(){
+		if(this.age < 20) return true;
+		else return false;
+	}
+	speakName(n = 1){
+		for(let i = 0; i < n; i++) alert(this.name);
+	}
+}
+
+let u = new User(1, "John", 20);
+console.log(u); // { id: 1, name: "John", age: 20}
+// 1번 문제의 메서드를 생성자 함수 내부에서 추가하거나
+// prototype을 이용해서 정의하기 (권장)
+
+console.log(u.isMinor());
+u.speakName(3);*/
+
+/*class Bank{
+	constructor(init = 0){
+		this.balance = init;
+	}
+	getBalance(){
+		return this.balance;
+	}
+	deposit(amount){
+		this.balance += amount;
+	}
+	withdraw(amount){
+		if(amount >= this.balance){
+			const left = this.balance;
+			this.balance = 0;
+			return left;
+		}else{
+			this.balance -= amount;
+			return amount;
+		}
+	}
+}*/
+
+/*function Bank(init = 0){
+	this.balance = init;
+}
+
+Bank.prototype.getBalance = function(){
+	return this.balance;
+}
+Bank.prototype.deposit = function(amount){
+	this.balance += amount;
+}
+Bank.prototype.withdraw = function(amount){
+	if(amount >= this.balance){
+		const left = this.balance;
+		this.balance = 0;
+		return left;
+	}else{
+		this.balance -= amount;
+		return amount;
+}
+
+let bank = new Bank();
+bank.deposit(1000);
+bank.deposit(2000);
+console.log(bank.getBalance());
+let r1 = bank.withdraw(1000);
+console.log(r1, bank.getBalance());
+let r2 = bank.withdraw(5000);
+console.log(r2, bank.getBalance());*/
+
+</script>

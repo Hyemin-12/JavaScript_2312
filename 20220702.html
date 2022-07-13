@@ -1,0 +1,25 @@
+<script>
+/*let animal = { name: "Munzi", type: "cat", age: 2 , breed: "British Shorthair"};
+
+// name = 이름이 name인 프로퍼티
+// rest = { type: "cat", age: 2 }
+let { name, type: t, ...rest} = animal;
+
+console.log(name); // Munzi
+console.log(t); // cat
+console.log(rest.age); // 2
+console.log(rest.breed); // British Shorthair*/
+
+function sumAll(num1, num2, ...args) {
+    let sum = num1 + num2;
+    for (let num of args) {
+      sum += num;
+    }
+    return sum;
+}
+
+console.log( sumAll(1, 2, 3, 4) ); // 10
+console.log( sumAll(1, 2, 3, 4, 5) ); // 15
+console.log( sumAll(1, 2, 3, 4, 5, 6) ); // 21
+
+</script>
